@@ -30,11 +30,11 @@ public class DepartmentsController : ControllerBase
             return BadRequest(ModelState); // 400
 
         }
-
-
+      
+       
 
         var departmentToAdd = _mapper.Map<DepartmentEntity>(request);
-        _context.Departments.Add(departmentToAdd);
+        _context.Departments.Add(departmentToAdd );
         try
         {
             await _context.SaveChangesAsync();

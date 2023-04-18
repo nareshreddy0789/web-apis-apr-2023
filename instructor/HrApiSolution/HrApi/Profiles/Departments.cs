@@ -8,7 +8,7 @@ public class Departments : Profile
 {
     public Departments()
     {
-        CreateMap<DepartmentCreateRequest, DepartmentEntity>();
+       CreateMap<DepartmentCreateRequest, DepartmentEntity>();
 
         // Source is DepartmentEntity, Destination is DepartmentSummaryItem
         CreateMap<DepartmentEntity, DepartmentSummaryItem>()
