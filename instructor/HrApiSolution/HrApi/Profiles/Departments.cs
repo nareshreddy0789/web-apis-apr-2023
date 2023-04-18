@@ -8,7 +8,8 @@ public class Departments : Profile
 {
     public Departments()
     {
-       CreateMap<DepartmentCreateRequest, DepartmentEntity>();
+        CreateMap<DepartmentCreateRequest, DepartmentEntity>()
+             .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name.ToUpper()));
 
         // Source is DepartmentEntity, Destination is DepartmentSummaryItem
         CreateMap<DepartmentEntity, DepartmentSummaryItem>()

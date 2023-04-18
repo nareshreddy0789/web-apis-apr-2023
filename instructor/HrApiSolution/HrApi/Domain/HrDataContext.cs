@@ -16,7 +16,6 @@ public class HrDataContext : DbContext
     {
         return Departments.Where(d => d.Removed == false);
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<DepartmentEntity>().Property(p => p.Name)

@@ -6,3 +6,5 @@ services:
       - SA_PASSWORD=TokyoJoe138!
     ports:
       - 1433:1433 
+
+# docker run -e ACCEPT_EULA=Y -e SA_PASSWORD=TokyoJoe138! -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest

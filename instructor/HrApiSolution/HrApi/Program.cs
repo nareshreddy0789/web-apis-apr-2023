@@ -27,6 +27,8 @@ builder.Services.AddDbContext<HrDataContext>(options =>
     options.UseSqlServer(hrConnectionString);
 });
 
+// "Slow" - so we are "eagerly" creating this at application startup.
+
 var mapperConfiguration = new MapperConfiguration(options =>
 {
     options.AddProfile<Departments>();
@@ -55,5 +57,7 @@ app.MapControllers(); // it is going to create a phone directory.
             // create an instance of the DepartmentsController
                // to create an instance of this, you have to give it a HrDataContext
             // Call the GetDepartments method.
+    // if someone does a get /departments/(SOME INTEGER)
+        // create the departmentcontroller and call getbyid with that integer.
 
 app.Run(); // Starting the web server, and "blocking here"
