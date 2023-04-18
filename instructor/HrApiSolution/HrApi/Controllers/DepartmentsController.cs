@@ -21,6 +21,19 @@ public class DepartmentsController : ControllerBase
         _config = config;
     }
 
+    [HttpDelete("/departments/{id:int}")]
+    public async Task<ActionResult> RemoveDepartment(int id)
+    {
+        var department = await _context.GetActiveDepartments()
+        .SingleOrDefaultAsync(d => d.Id == id);
+        if (department != null)
+        {
+            department.Removed = true;
+            await _context.SaveChangesAsync();
+        }
+        return NoContent(); // 204 - success, but no content (body)
+    }
+
     [HttpPost("/departments")]
     public async Task<ActionResult> AddADepartment([FromBody] DepartmentCreateRequest request)
     {
@@ -59,5 +72,22 @@ public class DepartmentsController : ControllerBase
                 .ToListAsync()
         };
         return Ok(response);
+    }
+
+    [HttpGet("/departments/{id:int}")]
+    public async Task<ActionResult> GetDepartmentById(int id)
+    {
+        var response = await _context.GetActiveDepartments()
+        .Where(dept => dept.Id == id)
+        .ProjectTo<DepartmentSummaryItem>(_config)
+        .SingleOrDefaultAsync();
+        if (response is null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(response);
+        }
     }
 }

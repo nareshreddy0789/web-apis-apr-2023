@@ -1,13 +1,13 @@
 ### Getting the Departments
 
-GET http://localhost:1337/departments
+GET http://localhost:5138/departments
 
 
 ### 
 
-POST http://localhost:1337/departments
+POST http://localhost:5138/departments
 Content-Type: application/json
 
 {
-  "name": "SAles"
+  "name": "Development"
 }
