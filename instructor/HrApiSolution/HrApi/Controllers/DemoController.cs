@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace HrApi.Controllers;
 
 public class DemoController : ControllerBase
 {
     private readonly ILogger<DemoController> _logger;
-
-    public DemoController(ILogger<DemoController> logger)
+    private readonly IConfiguration _configuration;
+    private readonly IOptions<FeaturesOptions> _options;
+    public DemoController(ILogger<DemoController> logger, IConfiguration configuration, IOptions<FeaturesOptions> options)
     {
         _logger = logger;
+        _configuration = configuration;
+        _options = options;
     }
 
     [HttpGet("/demo")]
@@ -22,5 +26,27 @@ public class DemoController : ControllerBase
         _logger.LogInformation($"Finshed The Call that big hairy call {DateTime.Now.Millisecond}");
         return Ok($"All Done. Thanks (the one that started at {timeStarted.Millisecond}");
 
+    }
+
+    [HttpGet("/demo2")]
+    public async Task<ActionResult> IsFeatureEnabled()
+    {
+        //var isEnabled = _configuration.GetValue<bool>("features:demo");
+        //if (isEnabled)
+        //{
+        //    return Ok("Enabled");
+        //} else
+        //{
+        //    return Ok("Not Enabled");
+        //}
+
+        var isEnabled = _options.Value.demo;
+        if( isEnabled )
+        {
+            return Ok(_options.Value.trueMessage);
+        } else
+        {
+            return Ok(_options.Value.falseMessage);
+        }
     }
 }

@@ -1,0 +1,10 @@
+### Adding a Hiring Request
+
+POST http://localhost:1337/hiring-requests
+Content-Type: application/json
+
+{
+  "firstName": "Bob",
+  "lastName": "Smith",
+  "notes": "Super hacker dude. Also plays guitar in some 80's band."
+}
